@@ -1,0 +1,14 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    username: root
+    password: pengfeng
+    url: jdbc:mysql://47.100.206.217:3306/nougat?useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mapper:
+  mappers:
+    - com.webSocket.demo.config.MyMapper
+  not-empty: false
+  identity: MYSQL
