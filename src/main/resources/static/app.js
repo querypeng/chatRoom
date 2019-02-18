@@ -4,6 +4,11 @@ $(function(){
         connect();
     })
 
+    $("#n6").click(function () {
+        alert(0)
+        connect();
+    })
+
     $("#disconnect").click(function () {
         disconnect();
     })
@@ -11,6 +16,8 @@ $(function(){
     $("#send").click(function () {
         sendName();
     })
+
+
 })
 
 var stompClient=null;
@@ -29,7 +36,7 @@ function setConnecte(connected) {
 }
 
 function connect() {
-    if(!$("#name").val()){
+    if(!$("#n5").val()){
         return;
     }
     var socket=new SockJS('/chat');

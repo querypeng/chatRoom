@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +32,13 @@ public class WebSocketController {
 
     private static final ThreadLocal<Message> tl = new ThreadLocal<>();
 
+    Map<String,String> map;
+
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
     public Message greeting(Message message) throws Exception {
-        Message message1 = tl.get();
-        log.info("用户名:{}",message1.getName());
+        Message message1 = new Message();
+        message1.setName(map.get("username"));
         message1.setContent(message.getContent());
         return message1;
     }
@@ -54,9 +57,8 @@ public class WebSocketController {
             response.sendRedirect("http://localhost:8085/404.html");
             return;
         }
-        Message message = new Message();
-        message.setName(username);
-        tl.set(message);
+        map = new HashMap<>();
+        map.put("username",username);
         response.sendRedirect("http://localhost:8085/chat.html");
     }
 }
