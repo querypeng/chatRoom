@@ -72,10 +72,11 @@ function sendName() {
     stompClient.send("/app/hello", {}, JSON.stringify({
         'name': $("#name").val(),
         'content': $("#content").val()
-    }))
+    }));
 }
 
 function showGreeting(message) {
+    $("#content").val('');
     $("#greetings").append("<p>" + message.name + " : " + message.content + "</p>")
 }
 

@@ -36,7 +36,7 @@ public class WebSocketController {
     @SendTo("/topic/greetings")
     public Message greeting(Message message) throws Exception {
         Message message1 = new Message();
-        message1.setName(map.get("username"));
+        message1.setName(message.getName());
         message1.setContent(message.getContent());
         return message1;
     }
@@ -56,7 +56,6 @@ public class WebSocketController {
             return;
         }
         map = new HashMap<>();
-        map.put("username", username);
         response.sendRedirect("http://localhost:8085/chat.html");
     }
 }

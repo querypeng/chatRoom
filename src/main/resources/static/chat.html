@@ -35,11 +35,21 @@
             <div id="chat" style="display: none;"></div>
 
             <div class="input-group mb-3">
-                <input class="form-control" height="50px" id="content" placeholder="请输入聊天内容" type="text">
+                <input class="form-control" id="content" placeholder="请输入聊天内容" type="text"
+                       onkeypress="keySubmit()">
             </div>
             <input class="btn btn-info btn-block" id="send" type="button" value="发送聊天">
         </div>
     </div>
 </div>
 </body>
+<script>
+    function keySubmit(e) {
+        var evt = window.event || e;
+        if (evt.keyCode === 13) {
+            //回车事件
+            sendName()
+        }
+    }
+</script>
 </html>
