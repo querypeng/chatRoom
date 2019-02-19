@@ -7,6 +7,10 @@ $(function () {
         disconnect();
     });
 
+    $("#clear").click(function () {
+        $("#greetings").html("");
+    });
+
     $("#send").click(function () {
         sendName();
     });
@@ -14,18 +18,18 @@ $(function () {
 
 var stompClient = null;
 
+var style = ["alert-success", " alert-info", "alert-warning", "alert-danger",
+    "alert-primary", "alert-secondary", "alert-dark"];
 
 
 function getParams(url) {
     var theRequest = {};
     if (!url)
         url = location.href;
-    if (url.indexOf("?") !== -1)
-    {
+    if (url.indexOf("?") !== -1) {
         var str = url.substr(url.indexOf("?") + 1) + "&";
         var strs = str.split("&");
-        for (var i = 0; i < strs.length - 1; i++)
-        {
+        for (var i = 0; i < strs.length - 1; i++) {
             var key = strs[i].substring(0, strs[i].indexOf("="));
             theRequest[key] = strs[i].substring(strs[i].indexOf("=") + 1);
         }
@@ -76,7 +80,16 @@ function sendName() {
 }
 
 function showGreeting(message) {
+    var index = Math.floor((Math.random() * style.length));
     $("#content").val('');
-    $("#greetings").append("<p>" + message.name + " : " + message.content + "</p>")
-}
 
+    var conversation = document.getElementById("greetings");
+
+    var children_length = conversation.childNodes.length;
+
+    if (children_length + 1 > 10) {
+        conversation.removeChild(conversation.firstChild);
+    }
+
+    $("#greetings").append("<div class=\"alert " + style[index] + "\">" + message.name + " : " + message.content + "</div>")
+}
