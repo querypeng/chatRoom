@@ -27,12 +27,10 @@ import java.util.Map;
 @Slf4j
 public class WebSocketController {
 
+    private static final ThreadLocal<Message> tl = new ThreadLocal<>();
+    Map<String, String> map;
     @Resource
     private UserMapper userMapper;
-
-    private static final ThreadLocal<Message> tl = new ThreadLocal<>();
-
-    Map<String,String> map;
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -44,8 +42,8 @@ public class WebSocketController {
     }
 
     @GetMapping("/login")
-    public void a(@RequestParam("username")String username,
-                  @RequestParam("password")String password,
+    public void login(@RequestParam("username") String username,
+                  @RequestParam("password") String password,
                   HttpServletResponse response) throws IOException, ServletException {
 
         Chat chat = new Chat();
@@ -58,7 +56,7 @@ public class WebSocketController {
             return;
         }
         map = new HashMap<>();
-        map.put("username",username);
+        map.put("username", username);
         response.sendRedirect("http://localhost:8085/chat.html");
     }
 }

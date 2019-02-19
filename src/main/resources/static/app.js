@@ -9,12 +9,31 @@ $(function () {
 
     $("#send").click(function () {
         sendName();
-    })
+    });
 });
 
 var stompClient = null;
 
-function setConnecte(connected) {
+
+
+function getParams(url) {
+    var theRequest = {};
+    if (!url)
+        url = location.href;
+    if (url.indexOf("?") !== -1)
+    {
+        var str = url.substr(url.indexOf("?") + 1) + "&";
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length - 1; i++)
+        {
+            var key = strs[i].substring(0, strs[i].indexOf("="));
+            theRequest[key] = strs[i].substring(strs[i].indexOf("=") + 1);
+        }
+    }
+    return theRequest;
+}
+
+function setConnection(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
 
@@ -35,7 +54,7 @@ function connect() {
     var socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        setConnecte(true);
+        setConnection(true);
         stompClient.subscribe('/topic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body));
         })
@@ -46,7 +65,7 @@ function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
     }
-    setConnecte(false);
+    setConnection(false);
 }
 
 function sendName() {
@@ -57,6 +76,6 @@ function sendName() {
 }
 
 function showGreeting(message) {
-    $("#greetings").append("<div>" + message.name + ":" + message.content + "</div>")
+    $("#greetings").append("<p>" + message.name + " : " + message.content + "</p>")
 }
 
