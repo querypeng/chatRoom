@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="chatRoom" />
         <module name="webSocket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="chatRoom" target="1.8" />
       <module name="webSocket" target="1.8" />
     </bytecodeTargetLevel>
   </component>

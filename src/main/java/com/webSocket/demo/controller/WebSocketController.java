@@ -38,7 +38,7 @@ public class WebSocketController {
         Message message1 = new Message();
         message1.setName(message.getName());
         message1.setContent(message.getContent());
-        return message1;
+        return message;
     }
 
     @GetMapping("/login")
@@ -52,10 +52,10 @@ public class WebSocketController {
         condition.createCriteria().andEqualTo("name", username);
         List<Chat> chatList = userMapper.selectByCondition(condition);
         if (!password.equals(chatList.get(0).getPassword())) {
-            response.sendRedirect("http://localhost:8085/404.html");
+            response.sendRedirect("http://47.100.206.217:8085/404.html");
             return;
         }
         map = new HashMap<>();
-        response.sendRedirect("http://localhost:8085/chat.html");
+        response.sendRedirect("http://47.100.206.217:8085/chat.html");
     }
 }
