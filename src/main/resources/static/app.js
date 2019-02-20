@@ -14,6 +14,11 @@ $(function () {
     $("#send").click(function () {
         sendName();
     });
+
+    $("#disconnect").hide();
+    $("#clear").hide();
+    $("#content").hide();
+    $("#send").hide();
 });
 
 var stompClient = null;
@@ -42,11 +47,24 @@ function setConnection(connected) {
     $("#disconnect").prop("disabled", !connected);
 
     if (connected) {
+        // 操作麻烦
+        $("#connect").hide();
+        $("#name").hide();
         $("#conversation").show();
         $("#chat").show();
+        $("#disconnect").show();
+        $("#clear").show();
+        $("#content").show();
+        $("#send").show();
     } else {
+        $("#connect").show();
+        $("#name").show();
         $("#conversation").hide();
         $("#chat").hide();
+        $("#disconnect").hide();
+        $("#clear").hide();
+        $("#content").hide();
+        $("#send").hide();
     }
     $("#greetings").html("");
 }
